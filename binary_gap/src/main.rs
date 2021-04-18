@@ -1,6 +1,6 @@
 fn main() {
     
-    for num in 1..128 {
+    for num in 1..1024 {
         let binary = to_binary(num);
         let max_gap = max_gap(&binary);
 
@@ -10,12 +10,9 @@ fn main() {
 
 fn to_string_binary_vec(binary : Vec<i32>) -> String
 {
-    let mut result = String::new();
-    for i in binary.iter() {
-        result.push_str(&i.to_string());
-    }
-
-    result
+    binary.iter()
+        .map(|i| i.to_string())
+        .collect()
 }
 
 fn to_binary(mut num : i32) -> Vec<i32>
@@ -47,4 +44,9 @@ fn max_gap(binary : &Vec<i32>) -> i32
     }
 
     max
+}
+
+#[test]
+fn main_test() {
+    main();
 }
