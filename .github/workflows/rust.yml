@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build
+    - name: Build binary_gap
       run: cargo build --verbose --manifest-path ./binary_gap/Cargo.toml
-    - name: Run tests
-      run: cargo test --verbose
+    - name: Run binary_gap tests
+      run: cargo test --verbose --manifest-path ./binary_gap/Cargo.toml
