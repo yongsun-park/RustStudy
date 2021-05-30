@@ -1,0 +1,38 @@
+name: Rust
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build binary_gap
+      run: cargo build --verbose --manifest-path ./binary_gap/Cargo.toml
+    - name: Run binary_gap tests
+      run: cargo test --verbose --manifest-path ./binary_gap/Cargo.toml
+
+    - name: Build Fibonacci
+      run: cargo build --verbose --manifest-path ./Fibonacci/Cargo.toml
+    - name: Run Fibonacci tests
+      run: cargo test --verbose --manifest-path ./Fibonacci/Cargo.toml
+
+    - name: Build rectangles
+      run: cargo build --verbose --manifest-path ./rectangles/Cargo.toml
+    - name: Run Fibonacci tests
+      run: cargo test --verbose --manifest-path ./rectangles/Cargo.toml
+      
+    - name: Build vectorAverage
+      run: cargo build --verbose --manifest-path ./vectorAverage/Cargo.toml
+    - name: Run vectorAverage tests
+      run: cargo test --verbose --manifest-path ./vectorAverage/Cargo.toml
