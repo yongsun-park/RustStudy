@@ -36,3 +36,8 @@ jobs:
       run: cargo build --verbose --manifest-path ./vectorAverage/Cargo.toml
     - name: Run vectorAverage tests
       run: cargo test --verbose --manifest-path ./vectorAverage/Cargo.toml
+
+    - name: Build self_number
+      run: cargo build --verbose --manifest-path ./self_number/Cargo.toml
+    - name: Run self_number tests
+      run: cargo test --verbose --manifest-path ./self_number/Cargo.toml
