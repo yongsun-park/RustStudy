@@ -29,33 +29,50 @@ fn main() {
         }
     }
 
+    // string polygons
+    let strs = "
+    SB
+        PB
+            PT 350 130
+            PT 350 170
+            PT 450 170
+        PE 
+        PB
+            PT 370 150
+            PT 370 160
+            PT 430 160
+        PE
+    SE";
 
-    // Create a new polygon
     let mut surface = Surface::new();
-    let mut poly = Polygon::new();
-    // add point to the polygon
-    poly.points.push(Point { x: 1.0, y: 2.0 });
-    poly.points.push(Point { x: 2.0, y: 1.0 });
+    let mut poly:Polygon = Polygon::new();
 
-    // 10번 반복 하면서 Point를 입력한다
-    for i in 0..10 {
-        // i가 3일 때, poly를 새로 생성한다.
-        if i == 3 {
-            poly = Polygon::new();
+    let lines: Vec<&str> = strs.lines().collect();
+    for line in lines.iter().map(|s| s.trim()) {
+        
+        if line == "SB" {
+            surface = Surface::new();
+        } else if line == "PE" {
             surface.polygons.push(poly);
-        }
-        // i가 4이상이면 poly에 Point를 추가한다.
-        if i >= 4 {
-            let pt = Point { x: i as f64, y: i as f64 };
-            // surface polygons의 마지막 항목의 points에 pt를 추가한다.
-            surface.polygons.last_mut().unwrap().points.push(pt);
+            poly = Polygon::new();
+        } else if line.starts_with("PT") {
+            let mut parts = line.split_whitespace();
+            parts.next(); // skip "PT"
+            let x: f64 = parts.next().unwrap().parse().unwrap();
+            let y: f64 = parts.next().unwrap().parse().unwrap();
+            let pt = Point { x, y };
+
+            poly.points.push(pt); // <-- Error
+            // surface.polygons.last_mut().unwrap().points.push(pt);
         }
     }
 
     // Print the Surface polygons points
     for poly in surface.polygons.iter() {
+        println!("PB");
         for point in poly.points.iter() {
-            println!("x: {}, y: {}", point.x, point.y);
+            println!("\tx: {}, y: {}", point.x, point.y);
         }
+        println!("PE");
     }
 }
